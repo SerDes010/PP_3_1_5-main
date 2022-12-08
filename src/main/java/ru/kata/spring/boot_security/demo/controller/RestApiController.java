@@ -28,12 +28,12 @@ public class RestApiController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/admin")
     public ResponseEntity<List<User>> getUsers() {
         return new ResponseEntity<>(userService.findAll(),HttpStatus.OK);
     }
 
-    @PostMapping("/users")
+    @PostMapping("/admin")
     public ResponseEntity<ExceptionInfo> createUser(@Valid @RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String error = getErrorsFromBindingResult(bindingResult);
@@ -47,13 +47,13 @@ public class RestApiController {
         }
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity<ExceptionInfo> pageDelete(@PathVariable("id") long id) {
         userService.deleteById(id);
         return new ResponseEntity<>(new ExceptionInfo("User deleted"), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("users/{id}")
+    @GetMapping("admin/{id}")
     public ResponseEntity<User> getUser (@PathVariable("id") long id) {
         User user = userService.getById(id);
         return new ResponseEntity<>(user,HttpStatus.OK);
@@ -65,7 +65,7 @@ public class RestApiController {
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/admin/{id}")
     public ResponseEntity<ExceptionInfo> pageEdit(@PathVariable("id") long id,
                                                   @Valid @RequestBody User user,
                                                   BindingResult bindingResult) {
